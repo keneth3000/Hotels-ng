@@ -1,0 +1,9 @@
+<div style="background: url({{hotel.imageURL}}); background-repeat: no-repeat; background-position: center; background-size: cover;">
+  <h3>{{ hotel.name | uppercase }}</h3>
+  <p>{{ hotel.description }}</p>
+  <p>{{ hotel.price }}</p>
+  <ul *ngIf="hotel.tags.length !== 0">
+      <li *ngFor="let tag of hotel.tags">{{ tag }}</li>
+  </ul>
+  <button (click)="makeAReservation()" class="botonReversar">Reservar</button>
+</div>

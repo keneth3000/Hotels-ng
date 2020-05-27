@@ -1,0 +1,96 @@
+<form [formGroup]="todoGroup">
+  <a routerLink="/signin">O ¿ya tienes un usuario? <strong>Iniciar sesion</strong></a>
+  <!--Name-->
+  <mat-vertical-stepper linear #stepper>
+    <mat-step errorMessage="Nombre es requerido.">
+      <div>
+        <ng-template matStepLabel>Complete su nombre</ng-template>
+        <mat-form-field>
+          <mat-label>Nombre</mat-label>
+          <input
+            matInput
+            placeholder="Nombre"
+            formControlName="name"
+            required
+          />
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
+      </div>
+    </mat-step>
+    <!--Apellido-->
+    <mat-step errorMessage="Apellido es requerido.">
+      <div>
+        <ng-template matStepLabel>Complete su apellido</ng-template>
+        <mat-form-field>
+          <mat-label>Apellido</mat-label>
+          <input
+            matInput
+            placeholder="Apellido"
+            formControlName="lastName"
+            required
+          />
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Anterior</button>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
+      </div>
+    </mat-step>
+
+    <!--Email-->
+    <mat-step
+      errorMessage="Correo es requerido."
+    >
+      <div>
+        <ng-template matStepLabel>Complete su correo</ng-template>
+        <mat-form-field>
+          <mat-label>Correo</mat-label>
+          <input
+            matInput
+            placeholder="Correo"
+            formControlName="email"
+            type="email"
+            required
+          />
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Anterior</button>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
+      </div>
+    </mat-step>
+    <!--Password-->
+    <mat-step
+      errorMessage="Contraseña es requerida."
+    >
+      <div>
+        <ng-template matStepLabel>Complete su contraseña</ng-template>
+        <mat-form-field>
+          <mat-label>Contraseña</mat-label>
+          <input
+            matInput
+            placeholder="Contraseña"
+            formControlName="password"
+            type="password"
+            required
+          />
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Anterior</button>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
+      </div>
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>Guardado</ng-template>
+      <p>Usuario guardado.</p>
+      <div>
+        <button mat-button matStepperNext (click)="saveUser(todoGroup.value)">Enviar</button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
+
+</form>

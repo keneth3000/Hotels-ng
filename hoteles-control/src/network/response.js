@@ -7,11 +7,12 @@ const statusResponses = {
   '500': 'INTERNAL SERVER ERROR',
 };
 
-exports.success = (res, data, statusCode = 200) => {
+exports.success = (res, data,  user, statusCode = 200) => {
   res.status(statusCode).send({
     error: false,
     message: statusResponses[statusCode],
     data,
+    user,
     status: statusCode,
   });
 };

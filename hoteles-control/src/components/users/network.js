@@ -20,7 +20,8 @@ router.post('/signin', async(req, res) => {
   const { email, password } = req.body;
   try {
     const token = await Controller.signin(email, password);
-    response.success(res, token);
+    const user = await Controller.getUser(email, password);
+    response.success(res, token,  user );
   } catch (error) {
     console.error(error);
     response.error(res, error.code);

@@ -1,0 +1,65 @@
+<!-- Toolbar -->
+<div *ngIf="!authService.loggedIn(); else menuDos">
+  <div class="toolbar" role="banner" color="primary">
+    <div class="sparcer"></div>
+    <img
+      width="40"
+      style="border-radius: 50%; width: 50px; height: 50px; margin-right: 10px;"
+      alt="Logo"
+      src="../assets/img/icono.jpg"
+    />
+    <span>Bienvenido</span>
+  </div>
+</div>
+
+<ng-template #menuDos>
+  <app-toolbar></app-toolbar>
+</ng-template>
+
+<div class="content" role="main">
+  <div class="card highlight-card card-small">
+    <img class="circle-link" src="../assets/img/iconocard.jpg" alt="imagen" />
+
+    <span>{{ title }} welcome app!</span>
+  </div>
+
+  <div class="card-container">
+    <a class="card" mat-button>
+      <mat-icon aria-hidden="false" aria-label="help">help</mat-icon>
+      Ayuda
+    </a>
+
+    <a class="card" mat-button>
+      <mat-icon aria-hidden="true" aria-label="info">info</mat-icon>
+      Acerca del desarrolador
+    </a>
+
+    <div *ngIf="authService.loggedIn(); else fuera">
+      <a class="card" mat-button (click)="openDialog()">
+        <mat-icon aria-hidden="false" aria-label="add">add</mat-icon>
+
+        Agregar un hotel
+      </a>
+    </div>
+
+    <ng-template #fuera>
+      <a class="card" mat-button (click)="openDialog()">
+        <mat-icon aria-hidden="false" aria-label="add">add</mat-icon>
+        Crear un usuario
+      </a>
+    </ng-template>
+  </div>
+  <br /><br />
+
+  <section class="section-hotels" *ngIf="authService.loggedIn()">
+    <div>
+      <app-hotel
+        *ngFor="let hotel of hotels"
+        [hotel]="hotel"
+        (handleMakeAReservation)="handleReservation($event)"
+      ></app-hotel>
+    </div>
+  </section>
+  <!-- Footer -->
+  <footer></footer>
+</div>

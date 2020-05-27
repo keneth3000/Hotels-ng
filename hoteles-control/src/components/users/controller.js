@@ -103,10 +103,30 @@ async function signin(email = '', password = '') {
   }
 }
 
+async function getUser(email = '', password = ''){
+  try {
+    email = email.toLowerCase().trim();
+    password = password.trim();
+
+    if(!(email && password)){
+      throw { message: 'Missing data somethin like email or password', code: 400 };
+    }
+    const user = (await Store.listUser({ email })).pop();
+    if(!user){
+      throw { message: `There was no user with email: ${email}`, code: 400 };
+    }
+    return user;
+  } catch (error) {
+    
+  }
+} 
+
+
 module.exports = {
   addUser,
   listUser,
   updateUser,
   deleteUser,
-  signin
+  signin,
+  getUser
 };
