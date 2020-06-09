@@ -1,3 +1,10 @@
+$blanco: #fefefe;
+$grisOscuro: #222222;
+$grisClaro: #c8c8c8;
+
+$sombraDark: 10px 10px 20px rgba(170, 170, 170, 0.16);
+$sombraLight: 10px 10px 20px rgba(0, 0, 0, 0.16);
+
 :host {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
@@ -47,6 +54,17 @@ p {
   max-width: 960px;
   flex-direction: column;
   align-items: center;
+
+  &.darkMode{
+    .card{
+      background:$grisOscuro;
+      box-shadow: $grisClaro;
+      color: $grisClaro;
+       &:hover{
+         color: $blanco;
+       }
+    }
+  }
 }
 
 .card-container {

@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { SidebarService } from './sidebar.service';
+import { IUser } from '../../../models/user.model';
+import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
+import { ModelEditUserComponent } from '../model-edit-user/model-edit-user.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -15,39 +20,63 @@ import { SidebarService } from './sidebar.service';
   ]
 })
 export class SidebarComponent implements OnInit {
+  user:IUser[] = [];
   menus = [];
-  constructor(public sidenavService:SidebarService) {
+  constructor(public sidenavService: SidebarService, private _router:Router, public dialog:MatDialog) {
     this.menus = sidenavService.getMenuList();
-   }
-
-  ngOnInit(): void {
   }
 
-  getSideBarState(){
+  ngOnInit(): void {
+    this.sidenavService.getUser()
+      .subscribe((res:any) => {
+        this.user.push(res);
+      },(err)=>{
+        console.log(err);
+        throw err;
+      })
+  }
+
+  getSideBarState() {
     return this.sidenavService.getSidebarState();
   }
 
-  toggle(currentMenu){
-    if(currentMenu.type === 'dropdown') {
-      this.menus.forEach(element =>{
-        if(element === currentMenu){
-          currentMenu.active = !currentMenu.active;
-        }else{
-          element.active = false;
-        }
-      });
-    }
-  }
-
-  getState(currentMenu){
-    if(currentMenu.active){
+  getState(currentMenu) {
+    if (currentMenu.active) {
       return 'down';
-    }else{
+    } else {
       return 'up';
     }
   }
 
-  hasBackgroundImage(){
+  hasBackgroundImage() {
     return this.sidenavService.hasBackgroundImage;
+  }
+
+  deleteUser(id:string){
+    this.sidenavService.deleteUser(id)
+      .subscribe((res)=>{
+        localStorage.removeItem('token');
+        this._router.navigate(['/']);
+      }, (err:HttpErrorResponse)=>{
+          if(err.status === 400){
+             console.log("Este error", err.error.message, " Debes crear un usuario");
+             this._router.navigate(['/'])
+          }
+      })
+  }
+
+  editUser(user:IUser){
+    this.openDialog(user)
+  }
+
+  openDialog(user:IUser):void{
+    const config = {
+      data: {
+        content: user
+      }
+
+    }
+    const dialogRef = this.dialog.open(ModelEditUserComponent, config);
+    dialogRef.afterClosed();
   }
 }

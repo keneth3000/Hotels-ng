@@ -8,13 +8,8 @@ exports.addHotel = async(hotel) =>{
     }
 };
 
-exports.listHotel = async(filter, options = {}) => {
+exports.listHotel = async(filter) => {
     try {
-        if(options.orderBy){
-            return await Model.find(filter).sort({
-                [options.orderBy]:options.asc
-            });
-        }
         return await Model.find(filter);
     } catch (error) {
         throw error;

@@ -19,11 +19,14 @@ import { InicioComponent } from './components/inicio/inicio.component';
 import { HotelComponent } from './components/hotel/hotel.component';
 import { UsersComponent } from './components/users/users.component';
 import { ModalComponent } from './shared/components/modal/modal.component';
+import { ToolbarComponent } from './shared/components/toolbar/toolbar.component';
+import { EditComponent } from './components/users/edit/edit.component';
+import { ModelEditUserComponent } from './shared/components/model-edit-user/model-edit-user.component';
+import { ModelHotelComponent } from './shared/components/model-hotel/model-hotel.component';
+import { HotelAddComponent } from './components/hotel/hotel-add/hotel-add.component';
 
 //interceptor
 import { authInterceptorProviders } from './auth/service/token-interceptor.service';
-import { ToolbarComponent } from './shared/components/toolbar/toolbar.component';
-import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG:PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -36,7 +39,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG:PerfectScrollbarConfigInterface = {
     HotelComponent,
     UsersComponent,
     ModalComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    EditComponent,
+    ModelEditUserComponent,
+    ModelHotelComponent,
+    HotelAddComponent
   ],
   imports: [
     BrowserModule,

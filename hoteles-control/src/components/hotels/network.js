@@ -55,19 +55,9 @@ router.post('/report', async(req, res) => {
   }
 })
 
-router.get('/', Secure.checkAuth('list'), async (req, res) => {
-  const { orderBy, asc } = req.query;
-  const { _id, startDate, finalDate, qualification } = req.body;
+router.get('/', async (req, res) => {
   try {
-    let ascNumber = asc ? parseInt(asc) : undefined;
-    const hotelsFinded = await Controller.listHotel(
-      _id,
-      startDate,
-      finalDate,
-      qualification,
-      orderBy,
-      ascNumber
-    );
+    const hotelsFinded = await Controller.listHotel();
     response.success(res, hotelsFinded);
   } catch (error) {
     console.log(error);

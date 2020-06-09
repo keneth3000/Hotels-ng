@@ -1,9 +1,16 @@
-<div style="background: url({{hotel.imageURL}}); background-repeat: no-repeat; background-position: center; background-size: cover;">
+<div style="background: url('https://www.todaytourism.com/img/accommodation-type-img/hotel-default-img.jpg'); background-repeat: no-repeat; background-position: center; background-size: cover;" [ngClass]="{
+  'darkMode': getStorage()
+}">
   <h3>{{ hotel.name | uppercase }}</h3>
-  <p>{{ hotel.description }}</p>
-  <p>{{ hotel.price }}</p>
-  <ul *ngIf="hotel.tags.length !== 0">
-      <li *ngFor="let tag of hotel.tags">{{ tag }}</li>
+  <p>Q{{ hotel.price }}.00</p>
+
+  <ul>
+    <li>{{ hotel.availability | date:"mediumDate" }}</li>
+    <strong>Calificacion</strong>
+    <li>{{hotel.qualification}}</li>
   </ul>
+  <strong>Informacion</strong>
+  <p style="margin: 0;">{{hotel.email}}</p>
+  <p>{{hotel.direction}}</p>
   <button (click)="makeAReservation()" class="botonReversar">Reservar</button>
 </div>

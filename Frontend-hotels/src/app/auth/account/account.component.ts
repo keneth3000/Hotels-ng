@@ -1,31 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { SidebarService } from '../../shared/components/sidebar/sidebar.service';
 
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss'],
 })
-export class AccountComponent implements OnInit {
-  public currentImage
+export class AccountComponent{
 
-  constructor() {}
+  constructor(public sidebarService:SidebarService) {}
 
-  public profileForm = new FormGroup({
-    displayName: new FormControl('', Validators.required),
-    email: new FormControl('', Validators.required),
-    photoURL: new FormControl('', Validators.required)
-  });
-
-  ngOnInit(): void {
+  toggleSidebar(){
+    this.sidebarService.setSidebarState(!this.sidebarService.getSidebarState());
   }
 
-  onSaveUser(data){
-
+  toggleBackgroundImage(){
+    this.sidebarService.hasBackgroundImage = !this.sidebarService.hasBackgroundImage;
   }
-
-  handleImage(){
-
+  getSideBarState(){
+    return this.sidebarService.getSidebarState();
   }
-
+  hideSidebar(){
+    this.sidebarService.setSidebarState(true);
+  }
 }

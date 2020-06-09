@@ -1,6 +1,26 @@
+
+$blanco: #fefefe;
+$grisOscuro: #222222;
+$grisClaro: #c8c8c8;
+$azul: #3e60e9;
+$azulHover: #254be6;
+
+$sombraDark: 10px 10px 20px rgba(170, 170, 170, 0.16);
+$sombraLight: 10px 10px 20px rgba(0, 0, 0, 0.16);
+
 .mat-toolbar.mat-primary {
-  color: #fff;
-  background: #1976d2;
+  background-color:#1976d2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: .3s ease all;
+  box-shadow: $sombraDark;
+
+  &.darkToo{
+    background: $grisOscuro;
+    box-shadow: $sombraLight;
+  }
+
 }
 .icon {
   padding: 0 14px;
@@ -10,7 +30,50 @@
   flex: 1 1 auto;
 }
 
-a{
+a {
   text-decoration: none;
-  color: #FFFFFF;
+  color: #ffffff;
+  font-size: 30px;
+}
+
+//----------------Dark Mode, Light mode ---------------
+
+.switch {
+  background-color: #343d5b;
+  border-radius: 1000px;
+  border: none;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  outline: none;
+  &::after {
+    content: "";
+    display: block;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    background-color: #f1f1f1;
+    top: 0;
+    left: 0;
+    right: unset;
+    border-radius: 100px;
+    transition: 0.3 ease all;
+    box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.2);
+  }
+  &.active {
+    background-color: orange;
+    color: #000;
+    &::after {
+      right: 0;
+      left: unset;
+    }
+  }
+  span {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    display: block;
+    background: none;
+    color: #fff;
+  }
 }

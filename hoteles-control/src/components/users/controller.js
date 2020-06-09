@@ -1,5 +1,6 @@
 const Store = require('./store');
 const Auth = require('../../auth');
+const Model = require('./model');
 
 async function addUser(name = '', lastName = '', email = '', password = '') {
   let userToAdd;
@@ -75,7 +76,6 @@ async function deleteUser(_id) {
   try {
     return await Store.deleteUser(_id);
   } catch (error) {
-    console.error(error);
     throw error;
   }
 }
@@ -85,42 +85,35 @@ async function signin(email = '', password = '') {
     email = email.toLowerCase().trim();
     password = password.trim();
 
-    if(!(email && password)){
-      throw { message: 'Missing data something like email or password', code: 400 };
+    if (!(email && password)) {
+      throw {
+        message: 'Missing data something like email or password',
+        code: 400,
+      };
     }
     const user = (await Store.listUser({ email })).pop();
-    if(!user){
+    if (!user) {
       throw { message: `There was no user with email: ${email}`, code: 400 };
     }
     const passwordCorrect = await Auth.comparePassword(password, user.password);
-    if(!passwordCorrect){
+    if (!passwordCorrect) {
       throw { message: 'Password incorrect', code: 400 };
     }
     return Auth.generateAndSignToken({ sub: user.id });
   } catch (error) {
-    console.log(error);
     throw error;
   }
 }
 
-async function getUser(email = '', password = ''){
+async function getUser(req) {
   try {
-    email = email.toLowerCase().trim();
-    password = password.trim();
-
-    if(!(email && password)){
-      throw { message: 'Missing data somethin like email or password', code: 400 };
-    }
-    const user = (await Store.listUser({ email })).pop();
-    if(!user){
-      throw { message: `There was no user with email: ${email}`, code: 400 };
-    }
-    return user;
+    const token = Auth.decodeAuthorization(req);
+    const payload = Auth.decodeToken(token);
+    return await Store.getUser(payload.sub);
   } catch (error) {
-    
+    throw error;
   }
-} 
-
+}
 
 module.exports = {
   addUser,

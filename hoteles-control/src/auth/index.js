@@ -48,7 +48,7 @@ function decodeToken(token){
 function decodeAuthorization(req){
     try {
         const authorization = req.headers.authorization || ''
-        const token = authorization.replace(/['"]+/g, '');
+        let token = authorization.split(' ')[1];
         if(!token){
             throw { message: 'You dont send any token', code: 401 }
         }

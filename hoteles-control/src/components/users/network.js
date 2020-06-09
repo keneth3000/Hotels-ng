@@ -4,9 +4,10 @@ const router = express.Router();
 const response = require('../../network/response');
 const Controller = require('./controller');
 const Secure = require('./secure');
+const Auth = require('../../auth');
 
 router.post('/', async (req, res) => {
-  const {name, lastName, email,  password } = req.body;
+  const { name, lastName, email, password } = req.body;
   try {
     const userAdded = await Controller.addUser(name, lastName, email, password);
     response.success(res, userAdded, 201);
@@ -16,12 +17,11 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.post('/signin', async(req, res) => {
+router.post('/signin', async (req, res) => {
   const { email, password } = req.body;
   try {
     const token = await Controller.signin(email, password);
-    const user = await Controller.getUser(email, password);
-    response.success(res, token,  user );
+    response.success(res, token);
   } catch (error) {
     console.error(error);
     response.error(res, error.code);
@@ -29,18 +29,34 @@ router.post('/signin', async(req, res) => {
 });
 
 router.get('/', async (req, res) => {
-  try {;
+  try {
     const userFounded = await Controller.listUser();
     response.success(res, userFounded, 200);
   } catch (error) {
-    response.error(res, error.code)
+    response.error(error, error.code);
   }
 });
 
-router.put('/', Secure.checkAuth('updateOrDelete'),async(req, res) => {
+router.get('/profile', Secure.checkAuth('list'), async(req, res)=>{
+  try {
+    const user = await Controller.getUser(req);
+    response.success(res, user);
+  } catch (error) {
+    console.error(error);
+    response.error(error, error.code);
+  }
+});
+
+router.put('/', Secure.checkAuth('updateOrDelete'), async (req, res) => {
   const { _id, name, lastName, email, password } = req.body;
   try {
-    const userUpdated = await Controller.updateUser(_id, name, lastName, email, password);
+    const userUpdated = await Controller.updateUser(
+      _id,
+      name,
+      lastName,
+      email,
+      password
+    );
     response.success(res, userUpdated);
   } catch (error) {
     console.log(error);
@@ -48,7 +64,7 @@ router.put('/', Secure.checkAuth('updateOrDelete'),async(req, res) => {
   }
 });
 
-router.delete('/', Secure.checkAuth('updateOrDelete'),async(req, res) => {
+router.delete('/', Secure.checkAuth('updateOrDelete'), async (req, res) => {
   const { _id } = req.body;
 
   try {

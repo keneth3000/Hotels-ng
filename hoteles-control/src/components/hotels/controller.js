@@ -26,34 +26,11 @@ async function addHotel(name = '', email = '', password = '', country='', direct
     }
 }
 
-async function listHotel(_id, startDate = '', finalDate = '', qualification = 0, orderBy = '', asc = 1){
+async function listHotel(){
     let filter = {};
-    let options = {};
-    
+
     try {
-        startDate = startDate ? new Date(startDate) : Date.now();
-        finalDate = finalDate ? new Date(finalDate) : Date.now();
-        if(orderBy){
-            options.orderBy = orderBy;
-            console.log(asc);
-            if(typeof asc !== 'number' || (asc !== 1 && asc !== -1)){
-                throw { message: 'asc parameter bad formated', code: 400 };
-            }
-            options.asc = asc;
-            return await Store.listHotel(filter, options);
-        }
-        if(startDate > finalDate){
-            throw { message: 'Sorry your specified start date is later than the final date', code: 400 };
-        }else{
-            if(_id){
-                filter = { _id };
-            }else if(qualification){
-                filter = { qualification };
-            }else {
-                filter = { availability: { $gte: startDate, $lte: finalDate } };
-            }
-        }
-        return await Store.listHotel(filter);
+       return await Store.listHotel(filter);
     } catch (error) {
         console.log(error);
         throw error;

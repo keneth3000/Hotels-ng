@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { Component, OnInit, ElementRef } from '@angular/core';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { IUser } from 'src/app/models/user.model';
-import { HotelService } from '../../services/hotel.service';
+import { IUser } from '../../models/user.model';
 import { Router } from '@angular/router';
+import { AuthService } from '../../auth/service/auth.service';
 
 @Component({
   selector: 'app-users',
@@ -15,8 +15,8 @@ import { Router } from '@angular/router';
 })
 
 export class UsersComponent implements OnInit {
-
-  constructor(private _router:Router, private _serviceHotel: HotelService) { }
+  claseDark = false;
+  constructor(private _router:Router, private _authService: AuthService, private elementRef:ElementRef) { }
 
   ngOnInit(): void {
 
@@ -30,10 +30,20 @@ export class UsersComponent implements OnInit {
   });
 
   saveUser(data: IUser) {
-    this._serviceHotel.saveUser(data)
+    this._authService.saveUser(data)
       .subscribe((res) =>{
         this._router.navigate(['/signin'])
       });
+  }
+
+  getStorage():boolean{
+    if(localStorage.getItem('dark-mode') === 'true'){
+      this.elementRef.nativeElement.ownerDocument.body.classList.add('dark');
+      return this.claseDark = true;
+    }else{
+      this.elementRef.nativeElement.ownerDocument.body.classList.remove('dark');
+      return this.claseDark = false;
+    }
   }
 
 }

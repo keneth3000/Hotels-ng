@@ -48,8 +48,18 @@ exports.deleteUser = async (_id) => {
     }
     return userDeleted;
   } catch (error) {
-    console.log(error);
     throw error;
   }
 };
 
+exports.getUser = async (_id) => {
+  try {
+    const userFind = await Model.findById(_id);
+    if (!userFind) {
+      throw { message: `User with _id ${_id} not founded`, code: 404 };
+    }
+    return userFind;
+  } catch (error) {
+    throw error;
+  }
+};

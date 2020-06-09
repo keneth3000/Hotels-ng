@@ -1,0 +1,19 @@
+<div class="new-post-container" *ngFor="let data of info">
+  <form [formGroup]="editForm" (ngSubmit)="editCredential(editForm.value, data._id)">
+    <mat-form-field>
+      <mat-label>Nombre</mat-label>
+      <input matInput placeholder="Nombre" formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Apellido</mat-label>
+      <input matInput placeholder="Apellido" formControlName="lastName" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Correo</mat-label>
+      <input matInput placeholder="Correo" formControlName="email" />
+    </mat-form-field>
+    <input type="submit" class="mat-flat-button" value="Guardar" />
+  </form>
+</div>

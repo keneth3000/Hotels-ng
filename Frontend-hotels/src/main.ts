@@ -10,3 +10,10 @@ if (environment.production) {
 
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
+
+
+let getDark = localStorage.getItem('dark-mode')
+if (getDark === 'true') {
+  document.body.classList.add('dark')
+}
+

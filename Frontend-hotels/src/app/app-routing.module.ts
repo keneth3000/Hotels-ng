@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { InicioComponent } from './components/inicio/inicio.component';
+import { EditComponent } from './components/users/edit/edit.component';
 
 const routes: Routes = [
   {
@@ -19,7 +20,13 @@ const routes: Routes = [
   {
     path: 'account',
     loadChildren: () => import('./auth/account/account.module').then(m => m.AccountModule)
-  }
+  },
+  {
+    path: 'edit',
+    component: EditComponent
+  },
+  { path: 'signinhotel', loadChildren: () => import('./auth/signin-hotel/signin-hotel.module').then(m => m.SigninHotelModule) },
+  { path: 'account-hotel', loadChildren: () => import('./auth/account-hotel/account-hotel.module').then(m => m.AccountHotelModule) }
 ];
 
 @NgModule({

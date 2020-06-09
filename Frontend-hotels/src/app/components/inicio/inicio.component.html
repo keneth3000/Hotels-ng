@@ -16,11 +16,13 @@
   <app-toolbar></app-toolbar>
 </ng-template>
 
-<div class="content" role="main">
+<div class="content" role="main" [ngClass]="{
+  'darkMode': getStorage()
+}">
   <div class="card highlight-card card-small">
     <img class="circle-link" src="../assets/img/iconocard.jpg" alt="imagen" />
 
-    <span>{{ title }} welcome app!</span>
+    <span>{{ title }} Bienvenido a la app!</span>
   </div>
 
   <div class="card-container">
@@ -35,7 +37,7 @@
     </a>
 
     <div *ngIf="authService.loggedIn(); else fuera">
-      <a class="card" mat-button (click)="openDialog()">
+      <a class="card" mat-button (click)="openDialogHotel()">
         <mat-icon aria-hidden="false" aria-label="add">add</mat-icon>
 
         Agregar un hotel
@@ -43,7 +45,7 @@
     </div>
 
     <ng-template #fuera>
-      <a class="card" mat-button (click)="openDialog()">
+      <a class="card" mat-button (click)="newUser()">
         <mat-icon aria-hidden="false" aria-label="add">add</mat-icon>
         Crear un usuario
       </a>

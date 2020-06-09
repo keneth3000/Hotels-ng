@@ -11,6 +11,7 @@ import { IUser } from '../../models/user.model';
 })
 
 export class SigninComponent implements OnInit {
+  public user:IUser[] = [];
 
   public authForm = new FormGroup({
     email: new FormControl('', Validators.required),
@@ -30,7 +31,6 @@ export class SigninComponent implements OnInit {
         }
         localStorage.setItem('token', res.data);
         this._router.navigate(['/']);
-        console.log(res);
       })
   }
 }

@@ -1,0 +1,159 @@
+<form [formGroup]="todoGroup">
+  <a routerLink="/signin"
+    >O ¿ya tienes un usuario? <strong>Iniciar sesion</strong></a
+  >
+  <!--Name-->
+  <mat-vertical-stepper linear #stepper>
+    <mat-step errorMessage="Nombre del hotel es requerido.">
+      <div>
+        <ng-template matStepLabel>Complete el nombre</ng-template>
+        <mat-form-field>
+          <mat-label>Nombre</mat-label>
+          <input
+            matInput
+            placeholder="Nombre"
+            formControlName="name"
+            required
+          />
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
+      </div>
+    </mat-step>
+    <!--Precio-->
+    <mat-step errorMessage="Precio es requerido.">
+      <div>
+        <ng-template matStepLabel>Complete precio</ng-template>
+        <mat-form-field>
+          <mat-label>Precio</mat-label>
+          <input
+            matInput
+            placeholder="Precio"
+            formControlName="price"
+            required
+          />
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Anterior</button>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
+      </div>
+    </mat-step>
+
+    <!--Email-->
+    <mat-step errorMessage="Correo es requerido.">
+      <div>
+        <ng-template matStepLabel>Complete el correo</ng-template>
+        <mat-form-field>
+          <mat-label>Correo</mat-label>
+          <input
+            matInput
+            placeholder="Correo"
+            formControlName="email"
+            type="email"
+            required
+          />
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Anterior</button>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
+      </div>
+    </mat-step>
+
+     <!--Password-->
+     <mat-step errorMessage="Contraseña es requerida.">
+      <div>
+        <ng-template matStepLabel>Complete la contraseña</ng-template>
+        <mat-form-field>
+          <mat-label>Contraseña</mat-label>
+          <input
+            matInput
+            placeholder="Contraseña"
+            formControlName="password"
+            type="password"
+            required
+          />
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Anterior</button>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
+      </div>
+    </mat-step>
+
+    <!--Direccion-->
+    <mat-step errorMessage="Dirección es requerido.">
+      <div>
+        <ng-template matStepLabel>Complete la dirección</ng-template>
+        <mat-form-field>
+          <mat-label>Dirección</mat-label>
+          <input
+            matInput
+            placeholder="Dirección"
+            formControlName="direction"
+            required
+          />
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Anterior</button>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
+      </div>
+    </mat-step>
+
+
+     <!--Password-->
+     <mat-step errorMessage="Ciudad es requerida.">
+      <div>
+        <ng-template matStepLabel>Complete la ciudad</ng-template>
+        <mat-form-field>
+          <mat-label>Ciudad</mat-label>
+          <input
+            matInput
+            placeholder="Ciudad"
+            formControlName="country"
+            type="text"
+            required
+          />
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Anterior</button>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
+      </div>
+    </mat-step>
+
+    <!--Habiliatado-->
+    <mat-step errorMessage="Disponibilidad es requerido.">
+      <div>
+        <ng-template matStepLabel>Complete las disponibilidad</ng-template>
+        <mat-form-field>
+          <mat-label>Disponibilidad</mat-label>
+          <input
+            matInput
+            placeholder="Disponibilidad"
+            formControlName="availability"
+            type="date"
+            required
+          />
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Anterior</button>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
+      </div>
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>Guardado</ng-template>
+      <p>Usuario guardado.</p>
+      <div>
+        <button mat-button matStepperNext (click)="saveHotel(todoGroup.value)">
+          Enviar
+        </button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
+</form>
